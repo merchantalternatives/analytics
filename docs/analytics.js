@@ -113,8 +113,11 @@ function filterDataByTime(data, days) {
 
 function updateDashboard() {
     if (clickstreamData.length === 0 || shortlinksData.length === 0) {
+        console.log('No data loaded yet');
         return;
     }
+    
+    console.log('Updating dashboard with', clickstreamData.length, 'clicks and', shortlinksData.length, 'shortlinks');
     
     const timeFilter = document.getElementById('time-filter').value;
     const mediumFilter = document.getElementById('medium-filter').value;
@@ -131,6 +134,8 @@ function updateDashboard() {
         const shortUrl = click['Short link'];
         return shortlinkMap[shortUrl];
     });
+    
+    console.log('Relevant clicks after filtering:', relevantClicks.length);
     
     // Apply time filter
     relevantClicks = filterDataByTime(relevantClicks, timeFilter);
@@ -487,9 +492,19 @@ window.addEventListener('DOMContentLoaded', () => {
                         // Update dashboard once both files are loaded
                         updateDashboard();
                         
-                        // Update UI to show files are loaded
-                        document.getElementById('clickstream-file').style.borderColor = '#4ade80';
-                        document.getElementById('shortlinks-file').style.borderColor = '#4ade80';
+                        // Ensure table shows appropriate message if no data
+                        const tbody = document.querySelector('#links-table tbody');
+                        if (tbody && tbody.innerHTML.includes('Loading')) {
+                            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #999;">No matching data found between clickstream and configured shortlinks.</td></tr>';
+                        }
+                        
+                        // Update UI to show files are loaded (if elements exist)
+                        if (document.getElementById('clickstream-file')) {
+                            document.getElementById('clickstream-file').style.borderColor = '#4ade80';
+                        }
+                        if (document.getElementById('shortlinks-file')) {
+                            document.getElementById('shortlinks-file').style.borderColor = '#4ade80';
+                        }
                     }
                 });
             }
