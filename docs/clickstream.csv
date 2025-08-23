@@ -1,1 +1,11 @@
 Short link,Date,Time,IP,Status,Browser,Referrer,Method,User agent,Is human,Country,City,Social,OS,UTM source,UTM medium,UTM campaign,Goal completed,Variation URL,Original URL
+https://serp.ly/stripe,11/15/2024,2:30:00 PM,192.168.1.1,0,Chrome,,GET,,true,United States,New York,,Windows,,organic,,,,https://stripe.com/
+https://serp.ly/shopify,11/15/2024,3:45:00 PM,10.0.0.1,0,Firefox,,GET,,true,Canada,Toronto,,Mac OS X,,paid,,,,https://accounts.shopify.com/signup?irclickid=1bnXAAwMXxyKRiPTV5QfAV8-Uks1ijz9-Q8Z3g0
+https://serp.ly/stripe,11/14/2024,1:20:00 PM,172.16.0.1,0,Safari,,GET,,true,United Kingdom,London,,iOS,,social,,,,https://stripe.com/
+https://serp.ly/square,11/14/2024,4:10:00 PM,192.168.100.1,0,Chrome,,GET,,true,United States,San Francisco,,Windows,,direct,,,,https://squareup.com/us/en
+https://serp.ly/paypal,11/13/2024,10:00:00 AM,10.10.10.1,0,Edge,,GET,,true,Australia,Sydney,,Windows,,email,,,,http://www.paypal.com/
+https://serp.ly/shopify,11/13/2024,11:30:00 AM,192.168.50.1,0,Chrome,,GET,,true,United States,Los Angeles,,Mac OS X,,paid,,,,https://accounts.shopify.com/signup?irclickid=1bnXAAwMXxyKRiPTV5QfAV8-Uks1ijz9-Q8Z3g0
+https://serp.ly/authorize-net,11/12/2024,9:15:00 AM,172.20.0.1,0,Firefox,,GET,,true,Germany,Berlin,,Windows,,organic,,,,https://account.authorize.net/ui/themes/anet/oauth/PricingPage.aspx?resellerId=16673
+https://serp.ly/stripe,11/12/2024,2:00:00 PM,192.168.200.1,0,Chrome,,GET,,true,France,Paris,,Mac OS X,,referral,,,,https://stripe.com/
+https://serp.ly/helcim,11/11/2024,5:45:00 PM,10.20.30.1,0,Safari,,GET,,true,Canada,Vancouver,,iOS,,affiliate,,,,https://www.helcim.com/?af=3b6fce2bae4181&utm_source=partner_merchantalternatives&utm_medium=affiliate
+https://serp.ly/square,11/11/2024,3:30:00 PM,192.168.75.1,0,Chrome,,GET,,true,United States,Chicago,,Windows,,organic,,,,https://squareup.com/us/en
