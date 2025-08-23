@@ -492,11 +492,14 @@ window.addEventListener('DOMContentLoaded', () => {
                         // Update dashboard once both files are loaded
                         updateDashboard();
                         
-                        // Ensure table shows appropriate message if no data
-                        const tbody = document.querySelector('#links-table tbody');
-                        if (tbody && tbody.innerHTML.includes('Loading')) {
-                            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #999;">No matching data found between clickstream and configured shortlinks.</td></tr>';
-                        }
+                        // Always ensure table doesn't show loading after data is loaded
+                        setTimeout(() => {
+                            const tbody = document.querySelector('#links-table tbody');
+                            if (tbody && tbody.innerHTML.includes('Loading')) {
+                                console.log('Replacing loading spinner with message');
+                                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #999;">No matching data found between clickstream and configured shortlinks.</td></tr>';
+                            }
+                        }, 100);
                         
                         // Update UI to show files are loaded (if elements exist)
                         if (document.getElementById('clickstream-file')) {
