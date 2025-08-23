@@ -10,12 +10,12 @@ window.addEventListener('DOMContentLoaded', () => {
     console.log('Loading CSV files for URL analysis...');
     
     Promise.all([
-        fetch('clickstream.csv')
+        fetch('data/clickstream.csv')
             .then(r => {
                 if (!r.ok) throw new Error('Failed to load clickstream.csv');
                 return r.text();
             }),
-        fetch('shortlinks.csv')
+        fetch('data/shortlinks.csv')
             .then(r => {
                 if (!r.ok) throw new Error('Failed to load shortlinks.csv');
                 return r.text();
