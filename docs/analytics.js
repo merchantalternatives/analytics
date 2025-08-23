@@ -129,13 +129,11 @@ function updateDashboard() {
         shortlinkMap[link.short_url] = link;
     });
     
-    // Filter relevant clicks (only those in shortlinks)
-    let relevantClicks = clickstreamData.filter(click => {
-        const shortUrl = click['Short link'];
-        return shortlinkMap[shortUrl];
-    });
+    // Use all clickstream data instead of filtering by shortlinks
+    // This allows showing all click data even if not in shortlinks.csv
+    let relevantClicks = clickstreamData;
     
-    console.log('Relevant clicks after filtering:', relevantClicks.length);
+    console.log('Total clicks to process:', relevantClicks.length);
     
     // Apply time filter
     relevantClicks = filterDataByTime(relevantClicks, timeFilter);
@@ -152,7 +150,8 @@ function updateDashboard() {
         relevantClicks = relevantClicks.filter(click => {
             const shortUrl = click['Short link'];
             const linkInfo = shortlinkMap[shortUrl];
-            const isAff = isAffiliate(linkInfo.original_url);
+            // Check if it's an affiliate link - either from shortlinks or from the URL itself
+            const isAff = linkInfo ? isAffiliate(linkInfo.original_url) : isAffiliate(shortUrl);
             return affiliateFilter === 'affiliate' ? isAff : !isAff;
         });
     }
@@ -431,19 +430,30 @@ function updateLinksTable(clicks, shortlinkMap) {
     let rowsAdded = 0;
     sortedLinks.forEach(([shortUrl, stats]) => {
         const linkInfo = shortlinkMap[shortUrl];
-        if (!linkInfo) return;
+        // Don't skip if no linkInfo - show the data anyway
         
         const topSource = Object.entries(stats.sources)
             .sort((a, b) => b[1] - a[1])[0][0];
         const topCountry = Object.entries(stats.countries)
             .sort((a, b) => b[1] - a[1])[0][0];
         
-        const isAff = isAffiliate(linkInfo.original_url);
+        // Extract name from URL if not in shortlinks
+        let name = linkInfo ? linkInfo.name : '';
+        if (!name && shortUrl.includes('/amazon/')) {
+            // Extract product name from Amazon URLs
+            name = decodeURIComponent(shortUrl.split('/amazon/')[1] || '').replace(/\+/g, ' ');
+        } else if (!name) {
+            // Extract last part of URL as name
+            name = shortUrl.split('/').pop() || shortUrl;
+        }
+        
+        // Determine if it's an affiliate link
+        const isAff = linkInfo ? isAffiliate(linkInfo.original_url) : isAffiliate(shortUrl);
         
         const row = tbody.insertRow();
         row.innerHTML = `
             <td><a href="${shortUrl}" target="_blank" style="color: #667eea;">${shortUrl}</a></td>
-            <td>${linkInfo.name || '-'}</td>
+            <td>${name || '-'}</td>
             <td>${stats.clicks.toLocaleString()}</td>
             <td><span class="affiliate-badge ${isAff ? 'affiliate-yes' : 'affiliate-no'}">${isAff ? 'Affiliate' : 'Regular'}</span></td>
             <td>${topSource}</td>
