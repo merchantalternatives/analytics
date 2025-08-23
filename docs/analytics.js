@@ -417,8 +417,13 @@ function updateLinksTable(clicks, shortlinkMap) {
         .slice(0, 20);
     
     const tbody = document.querySelector('#links-table tbody');
+    if (!tbody) {
+        return;
+    }
+    
     tbody.innerHTML = '';
     
+    let rowsAdded = 0;
     sortedLinks.forEach(([shortUrl, stats]) => {
         const linkInfo = shortlinkMap[shortUrl];
         if (!linkInfo) return;
@@ -439,10 +444,11 @@ function updateLinksTable(clicks, shortlinkMap) {
             <td>${topSource}</td>
             <td>${topCountry}</td>
         `;
+        rowsAdded++;
     });
     
-    if (sortedLinks.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #999;">No data available for selected filters</td></tr>';
+    if (rowsAdded === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #999;">No matching links found in the data. The clickstream data may not contain entries for the configured shortlinks.</td></tr>';
     }
 }
 
